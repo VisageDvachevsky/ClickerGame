@@ -1,0 +1,80 @@
+/* App.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.game-title {
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    background-color: #4a4a4a;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 50px); /* Subtract the height of the title */
+}
+
+/* Adjust HairCounter styles */
+.hair-counter-container {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    width: 40px;
+    height: 200px;
+}
+
+/* Adjust Character styles */
+.character-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.character-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+/* UsernameModal styles (if needed) */
+.username-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Add any additional mobile-specific styles here */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 1.2rem;
+    }
+
+    .hair-counter-container {
+        width: 30px;
+        height: 150px;
+    }
+}
