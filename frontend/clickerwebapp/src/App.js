@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Character from './components/character/Character';
+import HairCounter from './components/hairSidebar/hairCounter';
 import UsernameModal from './components/usernameModal/UsernameModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { getHairStatus, addToBuffer } from './services/hairService';
+import './App.css'; 
 
 const API_BASE_URL = 'http://localhost:5000/API';
 const API_BASE_URL = 'http://localhost:5000/API';
 
 function App() {
     const [userId, setUserId] = useState(null);
+    const [hairCount, setHairCount] = useState(0);
+    const maxHairCount = 5000;
 
     const checkAutoLogin = async (userIdFromCookie) => {
         try {
@@ -18,6 +23,7 @@ function App() {
 
             if (response.data.success) {
                 setUserId(userIdFromCookie);
+                fetchHairStatus(userIdFromCookie);
             } else {
                 Cookies.remove('userId'); 
             }
@@ -39,17 +45,33 @@ function App() {
         }
     }, []);
 
-    const handleUsernameSubmit = (userId) => {
-        setUserId(userId);
+    const fetchHairStatus = async (id) => {
+        const count = await getHairStatus(id);
+        setHairCount(count);
+    };
+
+    const handleUsernameSubmit = (id) => {
+        setUserId(id);
+        fetchHairStatus(id);
+    };
+
+    const handleRemoveHair = () => {
+        if (hairCount > 0) {
+            setHairCount(prev => prev - 1);
+            addToBuffer(userId, 1);
+        }
     };
 
     return (
         <div className="App">
-            <h1>Hair Removal Game</h1>
+            <h1 className="game-title">Hair Removal Game</h1>
             {!userId ? (
                 <UsernameModal onSubmit={handleUsernameSubmit} />
             ) : (
-                <Character userId={userId} />
+                <div className="game-container">
+                    <HairCounter hairCount={hairCount} maxHairCount={maxHairCount} />
+                    <Character userId={userId} hairCount={hairCount} onRemoveHair={handleRemoveHair} />
+                </div>
             )}
         </div>
     );
