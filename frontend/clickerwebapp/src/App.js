@@ -1,73 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Character from './components/Character';
-import HairCounter from './components/HairCounter';
-import Timer from './components/Timer';
-import VoucherExchange from './components/VoucherExchange';
-import ProgressBar from './components/ProgressBar';
-import Tasks from './components/Tasks';
-import Boosters from './components/Boosters';
-import InviteFriend from './components/InviteFriend';
-import BurnPointsTimer from './components/BurnPointsTimer';
-import SettingsMenu from './components/SettingsMenu';
-import { loadGameState, saveGameState } from './utils/storageUtils';
+import Character from './components/character/Character';
+import UsernameModal from './components/usernameModal/UsernameModal';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
-const AppWrapper = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-`;
+const API_BASE_URL = 'http://localhost:5000/API';
 
 function App() {
-  const [gameState, setGameState] = useState({
-    hairCount: 0,
-    level: 1,
-    vouchers: 0,
-    lastRemovalTime: Date.now(),
-  });
+    const [userId, setUserId] = useState(null);
 
-  useEffect(() => {
-    const savedState = loadGameState();
-    if (savedState) {
-      setGameState(savedState);
-    }
-  }, []);
+    const checkAutoLogin = async (userIdFromCookie) => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/check-login`, {
+                params: { userId: userIdFromCookie }
+            });
 
-  useEffect(() => {
-    saveGameState(gameState);
-  }, [gameState]);
+            if (response.data.success) {
+                setUserId(userIdFromCookie);
+            } else {
+                Cookies.remove('userId'); 
+            }
+        } catch (error) {
+            console.error('Error checking login:', error);
+        }
+    };
 
-  const updateGameState = (updates) => {
-    setGameState(prevState => ({
-      ...prevState,
-      ...updates,
-    }));
-  };
+    useEffect(() => {
+        const storedUserId = Cookies.get('userId');
+        if (storedUserId) {
+            checkAutoLogin(storedUserId);
+        }
+    }, []);
 
-  return (
-    <AppWrapper>
-      <h1>Hair Removal Clicker</h1>
-      <Character 
-        hairCount={gameState.hairCount} 
-        setHairCount={(count) => updateGameState({ hairCount: count, lastRemovalTime: Date.now() })} 
-      />
-      <HairCounter hairCount={gameState.hairCount} />
-      <Timer lastRemovalTime={gameState.lastRemovalTime} />
-      <VoucherExchange 
-        hairCount={gameState.hairCount} 
-        vouchers={gameState.vouchers}
-        updateGameState={updateGameState}
-      />
-      <ProgressBar level={gameState.level} hairCount={gameState.hairCount} />
-      <Tasks />
-      <Boosters />
-      <InviteFriend />
-      <BurnPointsTimer />
-      <SettingsMenu />
-    </AppWrapper>
-  );
+    const handleUsernameSubmit = (userId) => {
+        setUserId(userId);
+    };
+
+    return (
+        <div className="App">
+            <h1>Hair Removal Game</h1>
+            {!userId ? (
+                <UsernameModal onSubmit={handleUsernameSubmit} />
+            ) : (
+                <Character userId={userId} />
+            )}
+        </div>
+    );
 }
 
 export default App;
