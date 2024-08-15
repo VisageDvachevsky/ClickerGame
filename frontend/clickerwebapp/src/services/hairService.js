@@ -1,11 +1,13 @@
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:5000/API';
-const BATCH_SIZE = 100;
-const FLUSH_INTERVAL = 10000; 
+const INITIAL_BATCH_SIZE = 100;
+const INITIAL_FLUSH_INTERVAL = 10000; // 10 seconds
 
 let hairBuffer = [];
 let lastFlushTime = Date.now();
+let dynamicFlushInterval = INITIAL_FLUSH_INTERVAL;
+let dynamicBatchSize = INITIAL_BATCH_SIZE;
 
 /**
  * Отправка данных о удалении волос на сервер.
@@ -21,6 +23,21 @@ const sendBatch = async (batch) => {
 };
 
 /**
+ * Управление динамическими параметрами на основе текущего состояния буфера.
+ */
+const adjustFlushParameters = () => {
+    const timeSinceLastFlush = Date.now() - lastFlushTime;
+
+    if (hairBuffer.length >= dynamicBatchSize) {
+        dynamicFlushInterval = Math.max(1000, dynamicFlushInterval / 2); // Уменьшение интервала
+        dynamicBatchSize = Math.min(500, dynamicBatchSize * 1.5); // Увеличение размера батча
+    } else if (timeSinceLastFlush > dynamicFlushInterval * 2) {
+        dynamicFlushInterval = Math.min(INITIAL_FLUSH_INTERVAL, dynamicFlushInterval * 1.5); // Увеличение интервала
+        dynamicBatchSize = Math.max(INITIAL_BATCH_SIZE, dynamicBatchSize / 1.5); // Уменьшение размера батча
+    }
+};
+
+/**
  * Добавление данных об удалении волос в буфер и отправка при необходимости.
  * @param {string} userId - Идентификатор пользователя.
  * @param {number} removedHair - Количество удаленных волос.
@@ -28,7 +45,9 @@ const sendBatch = async (batch) => {
 export const addToBuffer = (userId, removedHair) => {
     hairBuffer.push({ userId, removedHair });
 
-    if (hairBuffer.length >= BATCH_SIZE || (Date.now() - lastFlushTime) > FLUSH_INTERVAL) {
+    adjustFlushParameters();
+
+    if (hairBuffer.length >= dynamicBatchSize || (Date.now() - lastFlushTime) > dynamicFlushInterval) {
         sendBatch(hairBuffer);
         hairBuffer = [];
         lastFlushTime = Date.now();
@@ -39,8 +58,9 @@ setInterval(() => {
     if (hairBuffer.length > 0) {
         sendBatch(hairBuffer);
         hairBuffer = [];
+        lastFlushTime = Date.now();
     }
-}, FLUSH_INTERVAL);
+}, dynamicFlushInterval);
 
 /**
  * Получение текущего состояния волос пользователя.

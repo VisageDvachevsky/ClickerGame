@@ -1,27 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { getHairStatus, addToBuffer } from '../../services/hairService';
+import React from 'react';
 import './Character.css';
 import characterImage from '../../assets/images/characterImage.png';
 
-const Character = ({ userId }) => {
-    const [hairCount, setHairCount] = useState(0);
-    const [isClicked, setIsClicked] = useState(false);  
-
-    useEffect(() => {
-        const fetchHairStatus = async () => {
-            const count = await getHairStatus(userId);
-            setHairCount(count);
-        };
-
-        fetchHairStatus();
-    }, [userId]);
-
-    const handleRemoveHair = () => {
-        setHairCount(prev => prev - 1);
-        addToBuffer(userId, 1);
+const Character = ({ userId, hairCount, onRemoveHair }) => {
+    const handleClick = () => {
+        onRemoveHair();
         
-        setIsClicked(true);
-        setTimeout(() => setIsClicked(false), 100); 
+        const imageElement = document.querySelector('.character-image');
+        imageElement.classList.add('clicked');
+        
+        setTimeout(() => {
+            imageElement.classList.remove('clicked');
+        }, 150); 
     };
 
     return (
@@ -29,10 +19,9 @@ const Character = ({ userId }) => {
             <img 
                 src={characterImage} 
                 alt="Character" 
-                className={`character-image ${isClicked ? 'clicked' : ''}`}  
-                onClick={handleRemoveHair} 
+                className="character-image"  
+                onClick={handleClick} 
             />
-            <div className="hair-count">Hair Count: {hairCount}</div>
         </div>
     );
 };

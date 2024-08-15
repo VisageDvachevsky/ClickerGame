@@ -38,23 +38,28 @@ const UsernameModal = ({ onSubmit }) => {
     return (
         <div className="modal-backdrop">
             <div className="modal-content">
-                <h2>Enter Your Username</h2>
+                <h2>Choose Your Nickname</h2>
+                <p>Make it fun and unique!</p>
                 <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={handleChange}
-                        placeholder="Enter your nickname"
-                        className="username-input"
-                        required
-                    />
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            value={username}
+                            onChange={handleChange}
+                            placeholder="Nickname"
+                            className="username-input"
+                            required
+                        />
+                        <span className="nickname-icon">🎮</span>
+                    </div>
                     <button type="submit" className="submit-button">
-                        Submit
+                        Let's Go!
                     </button>
                 </form>
             </div>
         </div>
-    );
+    );    
+    
 };
 
 export default UsernameModal;
