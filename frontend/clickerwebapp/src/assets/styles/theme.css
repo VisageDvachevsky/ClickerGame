@@ -1,0 +1,43 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+  
+    --font-size-small: 14px;
+    --font-size-medium: 16px;
+    --font-size-large: 18px;
+    --font-size-xlarge: 24px;
+  
+    --spacing-small: 5px;
+    --spacing-medium: 10px;
+    --spacing-large: 20px;
+  
+    --border-radius: 5px;
+  }
+  
+  body {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+  }
+  
+  button {
+    font-size: var(--font-size-medium);
+    padding: var(--spacing-small) var(--spacing-medium);
+    border-radius: var(--border-radius);
+  }
+  
+  h1, h2, h3 {
+    margin-bottom: var(--spacing-large);
+  }
+  
+  input, select {
+    font-size: var(--font-size-medium);
+    padding: var(--spacing-small);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--secondary-color);
+  }
