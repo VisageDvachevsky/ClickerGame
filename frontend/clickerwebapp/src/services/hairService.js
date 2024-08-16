@@ -15,7 +15,6 @@ let dynamicBatchSize = INITIAL_BATCH_SIZE;
  */
 const sendBatch = async (batch) => {
     try {
-<<<<<<< HEAD
         const userTimestamp = new Date().toISOString(); 
 
         await axios.post(`${API_BASE_URL}/remove-hair-batch`, {
@@ -23,19 +22,13 @@ const sendBatch = async (batch) => {
             userTimestamp, 
         });
 
-=======
-        await axios.post(`${API_BASE_URL}/remove-hair-batch`, { batch });
->>>>>>> e45d04eb738e071c2d904d72a5ae3a0813a46a84
         console.log('Batch sent successfully.');
     } catch (error) {
         console.error('Error sending batch:', error);
     }
 };
 
-<<<<<<< HEAD
 
-=======
->>>>>>> e45d04eb738e071c2d904d72a5ae3a0813a46a84
 /**
  * Управление динамическими параметрами на основе текущего состояния буфера.
  */
@@ -91,8 +84,4 @@ export const getHairStatus = async (userId) => {
         console.error('Error fetching hair status:', error);
         return 0; 
     }
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> e45d04eb738e071c2d904d72a5ae3a0813a46a84
