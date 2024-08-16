@@ -1,0 +1,96 @@
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-2rem); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modalContent {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+    max-width: 20rem;
+    width: 85%;
+    animation: slideIn 0.5s ease-out;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+.profileInfo {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.8rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.username {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.infoItem {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.closeButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #ff4757;
+    border: none;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.closeButton:hover, .closeButton:focus {
+    background-color: #ff6b81;
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.3rem 0.4rem rgba(0, 0, 0, 0.15);
+}
+
+.closeButton:active {
+    transform: translateY(0);
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+}

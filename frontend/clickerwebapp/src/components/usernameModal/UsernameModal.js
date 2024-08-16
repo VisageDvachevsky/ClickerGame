@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './UsernameModal.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { stringToNumber } from '../../utils/stringToNumber';
+import { stringToNumber } from '../../utils/stringUtils';
 
 const API_BASE_URL = '/API';
 
