@@ -8,7 +8,7 @@ import axios from 'axios';
 import { getHairStatus, addToBuffer } from './services/hairService';
 import './App.css';
 
-const API_BASE_URL = 'http://localhost:5000/API';
+const API_BASE_URL = '/API';
 
 function App() {
     const [userId, setUserId] = useState(null);

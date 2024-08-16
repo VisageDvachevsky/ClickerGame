@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { stringToNumber } from '../../utils/stringToNumber';
 
-const API_BASE_URL = 'http://localhost:5000/API';
+const API_BASE_URL = '/API';
 
 const UsernameModal = ({ onSubmit }) => {
     const [username, setUsername] = useState('');

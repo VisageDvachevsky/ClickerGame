@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/API';
+const API_BASE_URL = '/API';
 const INITIAL_BATCH_SIZE = 100;
-const INITIAL_FLUSH_INTERVAL = 10000; // 10 seconds
+const INITIAL_FLUSH_INTERVAL = 10000; 
 
 let hairBuffer = [];
 let lastFlushTime = Date.now();
