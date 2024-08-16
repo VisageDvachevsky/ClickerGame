@@ -1,0 +1,59 @@
+Building the frontend... 
+
+> clickerwebapp@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Compiled with warnings.
+
+[eslint] 
+src\App.js
+  Line 40:8:  React Hook useEffect has a missing dependency: 'checkAutoLogin'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+src\components\hairSidebar\hairCounter.js
+  Line 88:24:  The ref value 'counterRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'counterRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps
+  Line 94:8:   React Hook useEffect has missing dependencies: 'handleEnd' and 'handleMove'. Either include them or remove the dependency array                                                                                                                                      react-hooks/exhaustive-deps
+
+src\components\header\header.js
+  Line 41:25:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 42:25:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 43:25:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 44:25:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+File sizes after gzip:
+
+  61.18 kB  build\static\js\main.3161c9b0.js
+  2.13 kB   build\static\css\main.3a5db9ed.css
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  serve -s build
+
+Find out more about deployment here:
+
+  https://cra.link/deployment
+
+Starting the backend server... 
+
+> backend@1.0.0 start
+> node server.js
+
+Checking for users to reset at Fri Aug 16 2024 09:14:05 GMT+0300 (Москва, стандартное время)
+(node:10544) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10544) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+Server is running on port 5000
+MongoDB connected
+Found 0 users to reset.
+Hair reset job completed.
+Checking for users to reset at Fri Aug 16 2024 09:15:05 GMT+0300 (Москва, стандартное время)
+Found 0 users to reset.
+Hair reset job completed.
+^C

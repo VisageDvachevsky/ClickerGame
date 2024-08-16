@@ -14,6 +14,8 @@ exports.removeHairBatch = async (req, res) => {
           }
 
           hairStatus.hairCount = Math.max(0, hairStatus.hairCount - removedHair);
+          
+          hairStatus.totalHairRemoved += removedHair;
 
           const resetTime = new Date(Date.now() + 2 * 60 * 60 * 1000);
           hairStatus.resetScheduled = resetTime;
@@ -39,6 +41,24 @@ exports.getHairStatus = async (req, res) => {
     res.json({ hairCount: hairStatus.hairCount });
   } catch (error) {
     console.error('Get hair status error:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+exports.getTotalHairRemoved = async (req, res) => {
+  try {
+    const { userId } = req.query;
+    const hairStatus = await HairStatus.findOne({ userId });
+
+    if (!hairStatus) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    res.json({ 
+      totalHairRemoved: hairStatus.totalHairRemoved 
+    });
+  } catch (error) {
+    console.error('Get total hair removed error:', error);
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };

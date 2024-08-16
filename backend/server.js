@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const hairStatusRoutes = require('./routes/hairStatus');
+const backgroundRoutes = require('./routes/background');
+const pointsRoutes = require('./routes/points');
 const { connectDB } = require('./config/database');
 const startDynamicScheduler = require('./services/hairResetService');
 
@@ -17,6 +19,8 @@ connectDB();
 
 app.use('/API', authRoutes);
 app.use('/API', hairStatusRoutes);
+app.use('/API', backgroundRoutes);
+app.use('/API', pointsRoutes);
 
 startDynamicScheduler();
 

@@ -7,7 +7,11 @@ exports.login = async (req, res) => {
     let user = await User.findOne({ userId });
 
     if (!user) {
-      user = new User({ userId });
+      user = new User({ 
+        userId, 
+        points: 0,               
+        backgroundIndex: 0       
+      });
       await user.save();
 
       const hairStatus = new HairStatus({ userId, hairCount: 5000 }); 
