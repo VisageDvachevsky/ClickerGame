@@ -1,4 +1,4 @@
-const User = require('../models/user'); 
+const User = require('../models/user');
 
 exports.getPoints = async (req, res) => {
     const { userId } = req.query;

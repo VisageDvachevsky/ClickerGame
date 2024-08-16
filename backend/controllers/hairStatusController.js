@@ -9,16 +9,16 @@ exports.removeHairBatch = async (req, res) => {
           let hairStatus = await HairStatus.findOne({ userId });
 
           if (!hairStatus) {
-              console.warn(`User not found: ${userId}`);
+              console.warn(`HairStatus not found: ${userId}`);
               continue;
           }
 
           hairStatus.hairCount = Math.max(0, hairStatus.hairCount - removedHair);
-          
           hairStatus.totalHairRemoved += removedHair;
 
           const resetTime = new Date(Date.now() + 2 * 60 * 60 * 1000);
           hairStatus.resetScheduled = resetTime;
+
           await hairStatus.save();
       }
 

@@ -34,6 +34,7 @@
 }
 
 .character-image {
+    margin-top: 10rem;
     width: 500px;
     height: auto;
     cursor: pointer;

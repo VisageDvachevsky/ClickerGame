@@ -1,4 +1,5 @@
-const User = require('../models/user'); 
+const User = require('../models/user');
+const { levelUp } = require('../services/levelUpService');
 
 exports.getCurrentBackground = async (req, res) => {
     const { userId } = req.query;
@@ -17,19 +18,17 @@ exports.getCurrentBackground = async (req, res) => {
 };
 
 exports.updateBackground = async (req, res) => {
-    const { userId, backgroundIndex } = req.body;
+    const { userId, points } = req.body;
     try {
-        const user = await User.findOneAndUpdate(
-            { userId },
-            { $set: { backgroundIndex } },
-            { new: true }
-        );
+        const { user: updatedUser, hairStatus } = await levelUp(userId);
 
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        res.json({ success: true });
+        res.json({
+            success: true,
+            backgroundIndex: updatedUser.backgroundIndex,
+            level: updatedUser.level,
+            hairCount: hairStatus.hairCount,
+            resetScheduled: hairStatus.resetScheduled
+        });
     } catch (error) {
         console.error('Error updating background:', error);
         res.status(500).json({ error: 'Error updating background' });

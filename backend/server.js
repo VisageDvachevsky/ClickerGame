@@ -5,6 +5,7 @@ const authRoutes = require('./routes/auth');
 const hairStatusRoutes = require('./routes/hairStatus');
 const backgroundRoutes = require('./routes/background');
 const pointsRoutes = require('./routes/points');
+const levelRoutes = require('./routes/level');
 const { connectDB } = require('./config/database');
 const startDynamicScheduler = require('./services/hairResetService');
 
@@ -21,6 +22,7 @@ app.use('/API', authRoutes);
 app.use('/API', hairStatusRoutes);
 app.use('/API', backgroundRoutes);
 app.use('/API', pointsRoutes);
+app.use('/API', levelRoutes);
 
 startDynamicScheduler();
 

@@ -4,6 +4,7 @@ import HairCounter from './components/hairSidebar/hairCounter';
 import Header from './components/header/header';
 import UsernameModal from './components/usernameModal/UsernameModal';
 import Background from './components/background/background';
+import LevelUpModal from './components/levelUpModal/LevelUpModal'; 
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { getHairStatus, addToBuffer } from './services/hairService';
@@ -17,6 +18,8 @@ function App() {
     const [userId, setUserId] = useState(null);
     const [hairCount, setHairCount] = useState(0);
     const [points, setPoints] = useState(0);
+    const [level, setLevel] = useState(1); 
+    const [showLevelUpModal, setShowLevelUpModal] = useState(false); 
     const maxHairCount = 5000;
 
     const checkAutoLogin = async (userIdFromCookie) => {
@@ -29,7 +32,8 @@ function App() {
                 setUserId(userIdFromCookie);
                 await Promise.all([
                     fetchHairStatus(userIdFromCookie),
-                    fetchAndSetPoints(userIdFromCookie)
+                    fetchAndSetPoints(userIdFromCookie),
+                    fetchAndSetLevel(userIdFromCookie) 
                 ]);
             } else {
                 Cookies.remove('userId'); 
@@ -60,10 +64,22 @@ function App() {
         }
     };
 
+    const fetchAndSetLevel = async (id) => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/getUserLevel`, {
+                params: { userId: id }
+            });
+            setLevel(response.data.level);
+        } catch (error) {
+            console.error('Error fetching user level:', error);
+        }
+    };
+
     const handleUsernameSubmit = (id) => {
         setUserId(id);
         fetchHairStatus(id);
         fetchAndSetPoints(id);
+        fetchAndSetLevel(id);
     };
 
     const handleRemoveHair = async () => {
@@ -72,14 +88,26 @@ function App() {
             addToBuffer(userId, 1);
             
             try {
-                const newPoints = await processHairRemoval(userId, points, 1);
+                const newPoints = await processHairRemoval(userId, points, 1, level);
                 setPoints(newPoints);
                 
-                await updateBackground(userId, newPoints);
+                const response = await axios.post(`${API_BASE_URL}/updateLevel`, { userId });
+                const { level: newLevel, backgroundIndex: newBackgroundIndex } = response.data;
+                
+                if (newLevel > level) {
+                    setLevel(newLevel);
+                    setShowLevelUpModal(true);
+                }
+                
+                // updateBackground(newBackgroundIndex);
             } catch (error) {
                 console.error('Error processing hair removal:', error);
             }
         }
+    };
+
+    const closeLevelUpModal = () => {
+        setShowLevelUpModal(false);
     };
 
     return (
@@ -94,9 +122,13 @@ function App() {
                         hairCount={hairCount} 
                         maxHairCount={maxHairCount}
                         points={points}
+                        level={level} 
                     />
                     <Character userId={userId} hairCount={hairCount} onRemoveHair={handleRemoveHair} />
                 </div>
+            )}
+            {showLevelUpModal && (
+                <LevelUpModal level={level} onClose={closeLevelUpModal} />
             )}
         </div>
     );

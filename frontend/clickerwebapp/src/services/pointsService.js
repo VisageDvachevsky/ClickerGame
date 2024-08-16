@@ -2,10 +2,11 @@ import axios from 'axios';
 
 const API_BASE_URL = '/API';
 
-const POINTS_PER_HAIR = 1000;
+const BASE_POINTS_PER_HAIR = 1000;
 
-const calculatePoints = (hair) => {
-    return Math.floor(hair * POINTS_PER_HAIR);
+const calculatePoints = (hair, level) => {
+    const pointsPerHair = BASE_POINTS_PER_HAIR + (level - 1) * 2;
+    return Math.floor(hair * pointsPerHair);
 };
 
 const fetchPoints = async (userId) => {
@@ -32,8 +33,8 @@ const updatePoints = async (userId, points) => {
     }
 };
 
-const processHairRemoval = async (userId, currentPoints, hairRemoved) => {
-    const pointsToAdd = calculatePoints(hairRemoved);
+const processHairRemoval = async (userId, currentPoints, hairRemoved, level) => {
+    const pointsToAdd = calculatePoints(hairRemoved, level);
     const newPoints = currentPoints + pointsToAdd;
     
     await updatePoints(userId, newPoints);

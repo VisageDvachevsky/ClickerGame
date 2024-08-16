@@ -33,13 +33,18 @@ const fetchCurrentBackground = async (userId) => {
 };
 
 const updateBackground = async (userId, points) => {
-  const newBackgroundIndex = getBackgroundIndex(points);
   try {
-    await axios.post(`${API_BASE_URL}/updateBackground`, {
+    const response = await axios.post(`${API_BASE_URL}/updateBackground`, {
       userId,
-      backgroundIndex: newBackgroundIndex
+      points
     });
-    return newBackgroundIndex;
+    return {
+      newBackgroundIndex: response.data.backgroundIndex,
+      newLevel: response.data.level,
+      levelUp: response.data.level > 1, 
+      hairCount: response.data.hairCount,
+      resetScheduled: response.data.resetScheduled
+    };
   } catch (error) {
     console.error('Error updating background:', error);
     throw error;
