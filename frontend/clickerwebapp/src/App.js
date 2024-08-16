@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Character from './components/character/Character';
 import HairCounter from './components/hairSidebar/hairCounter';
+import Header from './components/header/header';
 import UsernameModal from './components/usernameModal/UsernameModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { getHairStatus, addToBuffer } from './services/hairService';
-import './App.css'; 
+import './App.css';
 
 const API_BASE_URL = 'http://localhost:5000/API';
 
@@ -57,12 +58,15 @@ function App() {
 
     return (
         <div className="App">
-            <h1 className="game-title">Hair Removal Game</h1>
+            <Header />
             {!userId ? (
                 <UsernameModal onSubmit={handleUsernameSubmit} />
             ) : (
                 <div className="game-container">
-                    <HairCounter hairCount={hairCount} maxHairCount={maxHairCount} />
+                    <HairCounter 
+                        hairCount={hairCount} 
+                        maxHairCount={maxHairCount}
+                    />
                     <Character userId={userId} hairCount={hairCount} onRemoveHair={handleRemoveHair} />
                 </div>
             )}

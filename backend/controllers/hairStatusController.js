@@ -1,28 +1,31 @@
 const HairStatus = require('../models/hairStatus');
 
 exports.removeHairBatch = async (req, res) => {
-    try {
+  try {
       const { batch } = req.body;
-  
+
       for (const item of batch) {
-        const { userId, removedHair } = item;
-        const hairStatus = await HairStatus.findOne({ userId });
-  
-        if (!hairStatus) {
-          console.warn(`User not found: ${userId}`);
-          continue;
-        }
-  
-        hairStatus.hairCount = Math.max(0, hairStatus.hairCount - removedHair);
-        await hairStatus.save();
+          const { userId, removedHair } = item;
+          let hairStatus = await HairStatus.findOne({ userId });
+
+          if (!hairStatus) {
+              console.warn(`User not found: ${userId}`);
+              continue;
+          }
+
+          hairStatus.hairCount = Math.max(0, hairStatus.hairCount - removedHair);
+
+          const resetTime = new Date(Date.now() + 2 * 60 * 60 * 1000);
+          hairStatus.resetScheduled = resetTime;
+          await hairStatus.save();
       }
-  
+
       res.json({ success: true });
-    } catch (error) {
+  } catch (error) {
       console.error('Remove hair batch error:', error);
       res.status(500).json({ success: false, message: 'Server error' });
-    }
-  };
+  }
+};
 
 exports.getHairStatus = async (req, res) => {
   try {

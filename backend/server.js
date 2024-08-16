@@ -4,6 +4,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const hairStatusRoutes = require('./routes/hairStatus');
 const { connectDB } = require('./config/database');
+const startDynamicScheduler = require('./services/hairResetService');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,6 +16,8 @@ connectDB();
 
 app.use('/API', authRoutes);
 app.use('/API', hairStatusRoutes);
+
+startDynamicScheduler();
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

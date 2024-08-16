@@ -1,0 +1,112 @@
+* {
+    user-select: none; 
+    -webkit-user-select: none;
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; 
+}
+
+.game-header {
+    display: flex;
+    align-items: center;
+    background-color: #2b2b2b; 
+    color: white;
+    height: 60px;
+    padding: 0 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.hamburger-menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 24px;
+    justify-content: space-around;
+    padding: 0;
+    width: 30px;
+    z-index: 10;
+    transition: transform 0.3s ease-in-out;
+}
+
+.hamburger-menu span {
+    background-color: white;
+    height: 3px;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+}
+
+.hamburger-menu.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.hamburger-menu.open {
+    transform: rotate(90deg);
+}
+
+.game-title {
+    margin: 0 0 0 20px;
+    font-size: 1.7rem;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.menu {
+    background: rgba(43, 43, 43, 0.9); 
+    position: fixed;
+    top: 60px;
+    left: -300px;
+    width: 300px;
+    height: calc(100% - 60px);
+    transition: left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.5s ease;
+    z-index: 999;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.menu.open {
+    left: 0;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu ul li {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    transition: background 0.3s ease, padding-left 0.3s ease;
+}
+
+.menu ul li:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+    padding-left: 30px;
+}
+
+.menu ul li a {
+    color: #f8b400; 
+    text-decoration: none;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.menu ul li a::before {
+    content: "🎮";
+    margin-right: 10px;
+}

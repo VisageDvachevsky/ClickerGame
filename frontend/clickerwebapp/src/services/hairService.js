@@ -15,12 +15,19 @@ let dynamicBatchSize = INITIAL_BATCH_SIZE;
  */
 const sendBatch = async (batch) => {
     try {
-        await axios.post(`${API_BASE_URL}/remove-hair-batch`, { batch });
+        const userTimestamp = new Date().toISOString(); 
+
+        await axios.post(`${API_BASE_URL}/remove-hair-batch`, {
+            batch,
+            userTimestamp, 
+        });
+
         console.log('Batch sent successfully.');
     } catch (error) {
         console.error('Error sending batch:', error);
     }
 };
+
 
 /**
  * Управление динамическими параметрами на основе текущего состояния буфера.
