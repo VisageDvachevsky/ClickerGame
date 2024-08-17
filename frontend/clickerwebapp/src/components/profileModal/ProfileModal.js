@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './profileModal.css';
+import './profileModal.css';
 import { numberToString } from '../../utils/stringUtils';
 
 const ProfileModal = ({ isOpen, onClose, userId }) => {
@@ -12,8 +12,16 @@ const ProfileModal = ({ isOpen, onClose, userId }) => {
     }, [isOpen, userId]);
 
     const fetchProfile = async () => {
+        if (!userId) {
+            console.error('User ID is required');
+            return;
+        }
+        
         try {
             const response = await fetch(`/api/profile?userId=${userId}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
             setProfile(data);
         } catch (error) {
@@ -21,40 +29,30 @@ const ProfileModal = ({ isOpen, onClose, userId }) => {
         }
     };
 
-    const numberToString = (num) => {
-        let str = '';
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        while (num > 0) {
-            str = chars[num % chars.length] + str;
-            num = Math.floor(num / chars.length);
-        }
-        return str || 'Anonymous';
-    };
-
     if (!isOpen || !profile) return null;
 
     const username = numberToString(parseInt(profile.userId));
 
     return (
-        <div className={styles.modalBackdrop} onClick={onClose}>
-            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                <h2 className={styles.title}>Профиль</h2>
-                <div className={styles.profileInfo}>
-                    <p className={styles.username}>{username}</p>
-                    <p className={styles.infoItem}>
-                        <span className={styles.icon}>🏆</span>
+        <div className="modalBackdrop" onClick={onClose}>
+            <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+                <h2 className="title">Профиль</h2>
+                <div className="profileInfo">
+                    <p className="username">{username}</p>
+                    <p className="infoItem">
+                        <span className="icon">🏆</span>
                         Уровень: {profile.level}
                     </p>
-                    <p className={styles.infoItem}>
-                        <span className={styles.icon}>💎</span>
+                    <p className="infoItem">
+                        <span className="icon">💎</span>
                         Очки: {profile.points}
                     </p>
-                    <p className={styles.infoItem}>
-                        <span className={styles.icon}>✂️</span>
+                    <p className="infoItem">
+                        <span className="icon">✂️</span>
                         Волосы: {profile.hairCount}
                     </p>
                 </div>
-                <button className={styles.closeButton} onClick={onClose}>Закрыть</button>
+                <button className="closeButton" onClick={onClose}>Закрыть</button>
             </div>
         </div>
     );

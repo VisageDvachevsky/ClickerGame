@@ -5,13 +5,11 @@
  * @returns {number} - Числовая последовательность.
  */
 export const stringToNumber = (str) => {
-    let hash = 0;
+    const bytes = [];
     for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = (hash << 5) - hash + char;
-        hash = hash & hash; 
+        bytes.push(str.charCodeAt(i));
     }
-    return Math.abs(hash); 
+    return bytes;
 };
 
 /**
@@ -19,15 +17,10 @@ export const stringToNumber = (str) => {
  * @param {number} num - Числовая последовательность.
  * @returns {string} - Ник пользователя.
  */
-export const numberToString = (num) => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+export const numberToString = (bytes) => {
     let str = '';
-    num = Math.abs(num); // Убедимся, что число положительное
-
-    do {
-        str = chars[num % chars.length] + str;
-        num = Math.floor(num / chars.length);
-    } while (num > 0);
-
-    return str || 'Anonymous';
+    for (let i = 0; i < bytes.length; i++) {
+        str += String.fromCharCode(bytes[i]);
+    }
+    return str;
 };

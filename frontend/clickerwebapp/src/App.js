@@ -96,12 +96,14 @@ function App() {
                 const response = await axios.post(`${API_BASE_URL}/updateLevel`, { userId });
                 const { level: newLevel, backgroundIndex: newBackgroundIndex } = response.data;
                 
-                if (newLevel > level) {
+                if (newLevel > level && newLevel <= 6) {
                     setLevel(newLevel);
                     setShowLevelUpModal(true);
                 }
                 
-                // updateBackground(newBackgroundIndex);
+                if (newLevel <= 6) {
+                    const backgroundResponse = await updateBackground(userId, newPoints);
+                }
             } catch (error) {
                 console.error('Error processing hair removal:', error);
             }
@@ -122,7 +124,7 @@ function App() {
 
     return (
         <div className="App">
-            <Background userId={userId} points={points} />
+            <Background userId={userId} points={points} level={level} />
             <Header onOpenProfile={openProfileModal} />
             {!userId ? (
                 <UsernameModal onSubmit={handleUsernameSubmit} />

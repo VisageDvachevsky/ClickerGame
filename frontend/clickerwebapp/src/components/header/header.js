@@ -24,6 +24,11 @@ const Header = ({ onOpenProfile }) => {
         };
     }, []);
 
+    const handleProfileClick = () => {
+        onOpenProfile();
+        setIsMenuOpen(false);
+    };
+
     return (
         <header className="game-header">
             <button
@@ -38,7 +43,7 @@ const Header = ({ onOpenProfile }) => {
             <h1 className="game-title">Hair Removal Clicker</h1>
             <nav ref={menuRef} className={`menu ${isMenuOpen ? 'open' : ''}`}>
                 <ul>
-                    <li><button onClick={onOpenProfile} className="menu-item">Profile</button></li>
+                    <li><button onClick={handleProfileClick} className="menu-item profile-button">Profile</button></li>
                     <li><a href="#" className="menu-item">...</a></li>
                     <li><a href="#" className="menu-item">...</a></li>
                     <li><a href="#" className="menu-item">...</a></li>
