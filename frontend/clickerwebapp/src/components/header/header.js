@@ -36,9 +36,9 @@ const Header = ({ onOpenProfile, onOpenStore }) => {
 
     return (
         <header className="game-header">
-            <button 
+            <button
                 ref={buttonRef}
-                className={`hamburger-menu ${isMenuOpen ? 'open' : ''}`} 
+                className={`hamburger-menu ${isMenuOpen ? 'open' : ''}`}
                 onClick={toggleMenu}
             >
                 <span></span>

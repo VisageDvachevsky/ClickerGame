@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getBackgroundUrl, fetchCurrentBackground } from '../../services/backgroundService';
 import './background.css';
 
-const Background = ({ userId, points }) => {
+const Background = ({ userId, points, level }) => {  
   const [backgroundIndex, setBackgroundIndex] = useState(0);
 
   useEffect(() => {
@@ -20,11 +20,15 @@ const Background = ({ userId, points }) => {
   }, [userId]);
 
   useEffect(() => {
-    const newIndex = Math.floor(points / 10000) % 6;
-    if (newIndex !== backgroundIndex) {
-      setBackgroundIndex(newIndex);
+    if (level >= 6) {
+      setBackgroundIndex(5);  
+    } else {
+      const newIndex = Math.floor(points / 10000) % 6;
+      if (newIndex !== backgroundIndex) {
+        setBackgroundIndex(newIndex);
+      }
     }
-  }, [points, backgroundIndex]);
+  }, [points, level, backgroundIndex]);
 
   const backgroundImage = getBackgroundUrl(backgroundIndex);
 

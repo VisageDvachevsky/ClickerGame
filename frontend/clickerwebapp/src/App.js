@@ -5,6 +5,7 @@ import Header from './components/header/header';
 import UsernameModal from './components/usernameModal/UsernameModal';
 import Background from './components/background/background';
 import LevelUpModal from './components/levelUpModal/LevelUpModal'; 
+import ProfileModal from './components/profileModal/ProfileModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { getHairStatus, addToBuffer } from './services/hairService';
@@ -97,12 +98,14 @@ function App() {
                 const response = await axios.post(`${API_BASE_URL}/updateLevel`, { userId });
                 const { level: newLevel, backgroundIndex: newBackgroundIndex } = response.data;
                 
-                if (newLevel > level) {
+                if (newLevel > level && newLevel <= 6) {
                     setLevel(newLevel);
                     setShowLevelUpModal(true);
                 }
                 
-                // updateBackground(newBackgroundIndex);
+                if (newLevel <= 6) {
+                    const backgroundResponse = await updateBackground(userId, newPoints);
+                }
             } catch (error) {
                 console.error('Error processing hair removal:', error);
             }
