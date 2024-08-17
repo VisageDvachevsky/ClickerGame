@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL = '/API';
 
-const BASE_POINTS_PER_HAIR = 1000;
+const BASE_POINTS_PER_HAIR = 2;
 
 const calculatePoints = (hair, level) => {
     const pointsPerHair = BASE_POINTS_PER_HAIR + (level - 1) * 2;
