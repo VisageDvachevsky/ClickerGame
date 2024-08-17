@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
 
-const Header = () => {
+const Header = ({ onOpenProfile, onOpenStore }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
@@ -24,6 +24,16 @@ const Header = () => {
         };
     }, []);
 
+    const handleProfileClick = () => {
+        onOpenProfile();
+        setIsMenuOpen(false);
+    };
+
+    const handleStoreClick = () => {
+        onOpenStore();
+        setIsMenuOpen(false);
+    };
+
     return (
         <header className="game-header">
             <button 
@@ -35,11 +45,14 @@ const Header = () => {
                 <span></span>
                 <span></span>
             </button>
-            <h1 className="game-title">Hair Removal Clicker</h1>
+            <h1 className="game-title">
+                Hair Removal 
+                <span className="subtitle">by Tina Electra</span>
+            </h1>
             <nav ref={menuRef} className={`menu ${isMenuOpen ? 'open' : ''}`}>
                 <ul>
-                    <li><a href="#" className="menu-item">...</a></li>
-                    <li><a href="#" className="menu-item">...</a></li>
+                    <li><button onClick={handleProfileClick} className="menu-item profile-button">Profile</button></li>
+                    <li><button onClick={handleStoreClick} className="menu-item store-button">Store</button></li>
                     <li><a href="#" className="menu-item">...</a></li>
                     <li><a href="#" className="menu-item">...</a></li>
                 </ul>

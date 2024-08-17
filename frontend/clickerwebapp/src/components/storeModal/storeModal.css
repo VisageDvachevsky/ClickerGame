@@ -1,0 +1,171 @@
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modalContent {
+    background: linear-gradient(135deg, #212121 0%, #3a3a3a 100%);
+    border-radius: 16px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease-out;
+    font-family: 'Poppins', sans-serif;
+}
+
+.title {
+    color: #ffffff;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.userPoints {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #ffd700;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.userPoints:hover {
+    transform: scale(1.08);
+    color: #ffdf00;
+}
+
+.userPoints .icon {
+    margin-right: 8px;
+    animation: pulse 1.5s infinite;
+}
+
+.storeSection {
+    margin-bottom: 20px;
+}
+
+.storeSection h3 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.couponGrid, .productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+}
+
+.productGrid.h4 {
+    color: white;
+}
+
+.activeCoupon {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.activeCoupon:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.activeCoupon h4 {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.activeCoupon p {
+    color: #cccccc;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+.qrCode {
+    width: 100%;
+    max-width: 160px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.closeButton {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.closeButton:hover {
+    background-color: #ff6b81;
+    transform: translateY(-3px);
+}
+
+.closeButton:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 350px) {
+    .couponGrid, .productGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .modalContent {
+        padding: 15px;
+        width: 95%;
+    }
+}
+
+.couponInfo {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 12px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.couponInfo:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.couponInfo p {
+    margin: 6px 0;
+    color: #ffffff;
+    font-size: 0.95rem;
+}

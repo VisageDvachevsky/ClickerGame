@@ -6,8 +6,12 @@ const hairStatusRoutes = require('./routes/hairStatus');
 const backgroundRoutes = require('./routes/background');
 const pointsRoutes = require('./routes/points');
 const levelRoutes = require('./routes/level');
+const profileRouter = require('./routes/profile');
+const couponRoutes = require('./routes/coupon');  
+
 const { connectDB } = require('./config/database');
 const startDynamicScheduler = require('./services/hairResetService');
+const { startCouponCleanupScheduler } = require('./services/couponService');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,8 +27,11 @@ app.use('/API', hairStatusRoutes);
 app.use('/API', backgroundRoutes);
 app.use('/API', pointsRoutes);
 app.use('/API', levelRoutes);
+app.use('/API', profileRouter);
+app.use('/API', couponRoutes);  
 
 startDynamicScheduler();
+startCouponCleanupScheduler();
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

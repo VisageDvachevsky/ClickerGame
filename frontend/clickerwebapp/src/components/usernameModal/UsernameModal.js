@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import './UsernameModal.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { stringToNumber } from '../../utils/stringToNumber';
+import { stringToHex } from '../../utils/stringUtils';
 
 const API_BASE_URL = '/API';
 
 const UsernameModal = ({ onSubmit }) => {
     const [username, setUsername] = useState('');
-    
 
     const handleChange = (e) => {
         setUsername(e.target.value);
@@ -17,7 +16,7 @@ const UsernameModal = ({ onSubmit }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (username.trim()) {
-            const userId = stringToNumber(username.trim());
+            const userId = stringToHex(username.trim());
 
             try {
                 const response = await axios.post(`${API_BASE_URL}/login`, { userId });

@@ -10,6 +10,7 @@ import axios from 'axios';
 import { getHairStatus, addToBuffer } from './services/hairService';
 import { fetchPoints, processHairRemoval } from './services/pointsService';
 import { updateBackground } from './services/backgroundService';
+import StoreModal from './components/storeModal/StoreModal';
 import './App.css';
 
 const API_BASE_URL = '/API';
@@ -20,6 +21,8 @@ function App() {
     const [points, setPoints] = useState(0);
     const [level, setLevel] = useState(1); 
     const [showLevelUpModal, setShowLevelUpModal] = useState(false); 
+    const [showProfileModal, setShowProfileModal] = useState(false);
+    const [showStoreModal, setShowStoreModal] = useState(false);
     const maxHairCount = 5000;
 
     const checkAutoLogin = async (userIdFromCookie) => {
@@ -106,14 +109,39 @@ function App() {
         }
     };
 
+    const updatePoints = async (userId, newPoints) => {
+        try {
+            await axios.post(`${API_BASE_URL}/updatePoints`, { userId, points: newPoints });
+            setPoints(newPoints);
+        } catch (error) {
+            console.error('Error updating points:', error);
+        }
+    };
+
     const closeLevelUpModal = () => {
         setShowLevelUpModal(false);
     };
 
+    const openProfileModal = () => {
+        setShowProfileModal(true);
+    };
+
+    const closeProfileModal = () => {
+        setShowProfileModal(false);
+    };
+
+    const openStoreModal = () => {
+        setShowStoreModal(true);
+    };
+
+    const closeStoreModal = () => {
+        setShowStoreModal(false);
+    };
+
     return (
         <div className="App">
-            <Background userId={userId} points={points} />
-            <Header />
+            <Background userId={userId} points={points} level={level} />
+            <Header onOpenProfile={openProfileModal} onOpenStore={openStoreModal} />
             {!userId ? (
                 <UsernameModal onSubmit={handleUsernameSubmit} />
             ) : (
@@ -129,6 +157,25 @@ function App() {
             )}
             {showLevelUpModal && (
                 <LevelUpModal level={level} onClose={closeLevelUpModal} />
+            )}
+            {showProfileModal && (
+                <ProfileModal 
+                    isOpen={showProfileModal}
+                    onClose={closeProfileModal}
+                    userId={userId}
+                    hairCount={hairCount}
+                    points={points}
+                    level={level}
+                />
+            )}
+            {showStoreModal && (
+                <StoreModal 
+                    isOpen={showStoreModal}
+                    onClose={closeStoreModal}
+                    userId={userId}
+                    points={points}
+                    updatePoints={updatePoints}
+                />
             )}
         </div>
     );

@@ -23,7 +23,6 @@ const resetHair = async (userId) => {
     }
 };
 
-
 const checkAndResetHair = async () => {
     try {
         const now = new Date();
@@ -43,7 +42,7 @@ const checkAndResetHair = async () => {
         const timeSinceLastCheck = Date.now() - lastCheckTime;
 
         if (pendingResets > 0) {
-            dynamicInterval = Math.max(5 * 1000, dynamicInterval * 0.9); 
+            dynamicInterval = Math.max(40 * 1000, dynamicInterval * 0.9); 
         } else {
             dynamicInterval = Math.min(60 * 1000, dynamicInterval * 1.1); 
         }

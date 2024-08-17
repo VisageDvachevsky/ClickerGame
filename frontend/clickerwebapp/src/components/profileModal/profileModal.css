@@ -1,0 +1,153 @@
+.profileModalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+    overflow: hidden;
+}
+
+.profileModalContent {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    padding: 30px 25px; 
+    border-radius: 20px; 
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); 
+    max-width: 350px;
+    width: 90%;
+    animation: slideUp 0.4s ease-out;
+    position: relative;
+}
+
+.profileTitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem; 
+    color: #fff;
+    margin-bottom: 20px; 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.profileInfo {
+    background: rgba(255, 255, 255, 0.2); 
+    border-radius: 12px;
+    padding: 20px; 
+    margin-bottom: 20px; 
+    transition: all 0.3s ease;
+}
+
+.profileInfo:hover {
+    background: rgba(255, 255, 255, 0.3); 
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); 
+}
+
+.username {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.4rem; 
+    color: #fff;
+    margin-bottom: 15px; 
+    font-weight: bold;
+}
+
+.infoItem {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem; 
+    color: #fff;
+    margin: 10px 0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    font-size: 1.4rem; 
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.infoItem:hover .icon {
+    transform: scale(1.3) rotate(15deg); 
+}
+
+.profileCloseButton {
+    padding: 12px 25px; 
+    font-size: 1.1rem; 
+    color: #fff;
+    background-color: #ff4757;
+    border: none;
+    border-radius: 30px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); 
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    position: absolute; 
+    top: -15px; 
+    right: -15px;
+}
+
+.profileCloseButton:hover {
+    background-color: #ff6b81;
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+.profileCloseButton:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15); 
+}
+
+.qrCode {
+    max-width: 250px; 
+    margin: 15px 0; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.activeCoupon {
+    margin-top: 25px;
+    padding: 15px; 
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1); 
+}
+
+.presentButton {
+    margin-top: 25px;
+    padding: 12px 25px; 
+    background: linear-gradient(135deg, #32a852, #66d18e);
+    color: white;
+    border: none;
+    border-radius: 30px; 
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); 
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem; 
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.2px; 
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 220px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.presentButton:hover {
+    background: linear-gradient(135deg, #28a745, #60c878);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); 
+    transform: translateY(-3px); 
+}
+
+.presentButton:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
