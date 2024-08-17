@@ -5,6 +5,7 @@ import Header from './components/header/header';
 import UsernameModal from './components/usernameModal/UsernameModal';
 import Background from './components/background/background';
 import LevelUpModal from './components/levelUpModal/LevelUpModal'; 
+import ProfileModal from './components/profileModal/ProfileModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { getHairStatus, addToBuffer } from './services/hairService';
@@ -20,6 +21,7 @@ function App() {
     const [points, setPoints] = useState(0);
     const [level, setLevel] = useState(1); 
     const [showLevelUpModal, setShowLevelUpModal] = useState(false); 
+    const [showProfileModal, setShowProfileModal] = useState(false);
     const maxHairCount = 5000;
 
     const checkAutoLogin = async (userIdFromCookie) => {
@@ -94,12 +96,14 @@ function App() {
                 const response = await axios.post(`${API_BASE_URL}/updateLevel`, { userId });
                 const { level: newLevel, backgroundIndex: newBackgroundIndex } = response.data;
                 
-                if (newLevel > level) {
+                if (newLevel > level && newLevel <= 6) {
                     setLevel(newLevel);
                     setShowLevelUpModal(true);
                 }
                 
-                // updateBackground(newBackgroundIndex);
+                if (newLevel <= 6) {
+                    const backgroundResponse = await updateBackground(userId, newPoints);
+                }
             } catch (error) {
                 console.error('Error processing hair removal:', error);
             }
@@ -110,10 +114,18 @@ function App() {
         setShowLevelUpModal(false);
     };
 
+    const openProfileModal = () => {
+        setShowProfileModal(true);
+    };
+
+    const closeProfileModal = () => {
+        setShowProfileModal(false);
+    };
+
     return (
         <div className="App">
-            <Background userId={userId} points={points} />
-            <Header />
+            <Background userId={userId} points={points} level={level} />
+            <Header onOpenProfile={openProfileModal} />
             {!userId ? (
                 <UsernameModal onSubmit={handleUsernameSubmit} />
             ) : (
@@ -129,6 +141,16 @@ function App() {
             )}
             {showLevelUpModal && (
                 <LevelUpModal level={level} onClose={closeLevelUpModal} />
+            )}
+            {showProfileModal && (
+                <ProfileModal 
+                    isOpen={showProfileModal}
+                    onClose={closeProfileModal}
+                    userId={userId}
+                    hairCount={hairCount}
+                    points={points}
+                    level={level}
+                />
             )}
         </div>
     );

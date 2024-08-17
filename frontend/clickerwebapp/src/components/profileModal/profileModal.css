@@ -1,0 +1,129 @@
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-2rem); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(2rem); opacity: 0; }
+}
+
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
+}
+
+.modalBackdrop.hidden {
+    animation: fadeOut 0.3s ease-out;
+}
+
+.modalContent {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.25);
+    max-width: 22rem;
+    width: 85%;
+    animation: slideIn 0.5s ease-out;
+    transition: transform 0.5s ease-out, box-shadow 0.3s ease-out;
+}
+
+.modalContent.hidden {
+    animation: slideOut 0.5s ease-out;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 1.2rem;
+    text-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
+}
+
+.profileInfo {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 0.8rem;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.profileInfo:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-0.2rem);
+}
+
+.username {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 0.6rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.infoItem {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin: 0.6rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.icon {
+    font-size: 1.4rem;
+    margin-right: 0.6rem;
+    transition: transform 0.3s ease;
+}
+
+.infoItem:hover .icon {
+    transform: scale(1.2);
+}
+
+.closeButton {
+    padding: 0.7rem 1.4rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #ff4757;
+    border: none;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.2);
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.07rem;
+}
+
+.closeButton:hover, .closeButton:focus {
+    background-color: #ff6b81;
+    transform: translateY(-0.2rem) scale(1.05);
+    box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.3);
+}
+
+.closeButton:active {
+    transform: translateY(0);
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
+}
