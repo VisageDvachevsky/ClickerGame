@@ -205,8 +205,8 @@ function App() {
                 onToggleMusic={toggleMusic}
                 isMusicPlaying={isMusicPlaying}
                 isMusicEnabled={isMusicEnabled}
-                onToggleClickSound={toggleClickSound} // Передаем функцию переключения звука клика
-                isClickSoundEnabled={isClickSoundEnabled} // Передаем состояние звука клика
+                onToggleClickSound={toggleClickSound} 
+                isClickSoundEnabled={isClickSoundEnabled} 
                 onOpenReferrals={handleOpenReferrals}
             />
             {!userId ? (
@@ -223,7 +223,7 @@ function App() {
                         userId={userId} 
                         hairCount={hairCount} 
                         onRemoveHair={handleRemoveHair} 
-                        isClickSoundEnabled={isClickSoundEnabled} // Передаем состояние звука клика
+                        isClickSoundEnabled={isClickSoundEnabled}
                     />
                 </div>
             )}

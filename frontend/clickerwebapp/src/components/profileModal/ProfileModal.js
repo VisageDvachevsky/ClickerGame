@@ -91,9 +91,9 @@ const ProfileModal = ({ isOpen, onClose, userId }) => {
     const username = hexToString(profile.userId);
 
     return (
-        <div className="modalBackdrop" onClick={onClose}>
-            <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-                <h2 className="title">Profile</h2>
+        <div className="profileModalBackdrop" onClick={onClose}>
+            <div className="profileModalContent" onClick={(e) => e.stopPropagation()}>
+                <h2 className="profileTitle">Profile</h2>
                 <div className="profileInfo">
                     <p className="username">{username}</p>
                     <p className="infoItem">
@@ -122,7 +122,7 @@ const ProfileModal = ({ isOpen, onClose, userId }) => {
                         </div>
                     )}
                 </div>
-                <button className="closeButton" onClick={onClose}>Close</button>
+                <button className="profileCloseButton" onClick={onClose}>Close</button>
 
                 <WarningModal 
                     isOpen={warningModalOpen}
