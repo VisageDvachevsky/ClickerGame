@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
 
-const Header = ({ onOpenProfile, onOpenStore, onToggleMusic, isMusicPlaying, isMusicEnabled, onOpenReferrals  }) => {
+const Header = ({ onOpenProfile, onOpenStore, onToggleMusic, isMusicPlaying, isMusicEnabled, onOpenReferrals, onToggleClickSound, isClickSoundEnabled }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [audioLoaded, setAudioLoaded] = useState(false); 
     const menuRef = useRef(null);
@@ -44,6 +44,10 @@ const Header = ({ onOpenProfile, onOpenStore, onToggleMusic, isMusicPlaying, isM
         setIsMenuOpen(false);
     };
 
+    const handleClickSoundToggle = () => {
+        onToggleClickSound();
+    };
+
     useEffect(() => {
         setAudioLoaded(true); 
     }, []);
@@ -68,7 +72,8 @@ const Header = ({ onOpenProfile, onOpenStore, onToggleMusic, isMusicPlaying, isM
                     <li><button onClick={handleProfileClick} className="menu-item profile-button">Profile</button></li>
                     <li><button onClick={handleStoreClick} className="menu-item store-button">Store</button></li>
                     <li><button onClick={handleReferralsClick} className="menu-item referrals-button">Referrals</button></li>
-                    <li><a href="#" className="menu-item">...</a></li>
+                    <li><a href="https://www.instagram.com/tina.electra" target="_blank" rel="noopener noreferrer" className="menu-item social-link instagram">Instagram</a></li>
+                    <li><a href="https://t.me/tina_electra" target="_blank" rel="noopener noreferrer" className="menu-item social-link telegram">Telegram</a></li>
                 </ul>
             </nav>
             <button 
@@ -77,6 +82,12 @@ const Header = ({ onOpenProfile, onOpenStore, onToggleMusic, isMusicPlaying, isM
                 disabled={!audioLoaded}
             >
                 {isMusicEnabled ? (isMusicPlaying ? '🔇' : '🔊') : '🎵'}
+            </button>
+            <button 
+                className="click-sound-toggle" 
+                onClick={handleClickSoundToggle} 
+            >
+                {isClickSoundEnabled ? '🔈' : '🔇'}
             </button>
         </header>
     );

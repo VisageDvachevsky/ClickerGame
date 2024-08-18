@@ -20,7 +20,7 @@ const path = require('path');
 app.use(cors());
 app.use(express.json());
 
-connectDB();
+connectDB().catch(console.dir);;
 
 app.use('/API', authRoutes);
 app.use('/API', hairStatusRoutes);

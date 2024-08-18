@@ -28,6 +28,7 @@ function App() {
     const [showStoreModal, setShowStoreModal] = useState(false);
     const [isMusicPlaying, setIsMusicPlaying] = useState(false);
     const [isMusicEnabled, setIsMusicEnabled] = useState(false);
+    const [isClickSoundEnabled, setIsClickSoundEnabled] = useState(true);
     const audioRef = useRef(new Audio('/sounds/MainMusic.ogg'));
 
     const maxHairCount = 5000;
@@ -46,7 +47,9 @@ function App() {
 
     const startMusic = () => {
         if (isMusicEnabled) {
+            audioRef.current.volume = 40;
             audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+            
             setIsMusicPlaying(true);
         }
     };
@@ -61,6 +64,10 @@ function App() {
             audioRef.current.play().catch(e => console.error("Audio play failed:", e));
             setIsMusicPlaying(true);
         }
+    };
+
+    const toggleClickSound = () => {
+        setIsClickSoundEnabled(prev => !prev);
     };
 
     const checkAutoLogin = async (userIdFromCookie) => {
@@ -198,6 +205,8 @@ function App() {
                 onToggleMusic={toggleMusic}
                 isMusicPlaying={isMusicPlaying}
                 isMusicEnabled={isMusicEnabled}
+                onToggleClickSound={toggleClickSound} // Передаем функцию переключения звука клика
+                isClickSoundEnabled={isClickSoundEnabled} // Передаем состояние звука клика
                 onOpenReferrals={handleOpenReferrals}
             />
             {!userId ? (
@@ -210,7 +219,12 @@ function App() {
                         points={points}
                         level={level} 
                     />
-                    <Character userId={userId} hairCount={hairCount} onRemoveHair={handleRemoveHair} />
+                    <Character 
+                        userId={userId} 
+                        hairCount={hairCount} 
+                        onRemoveHair={handleRemoveHair} 
+                        isClickSoundEnabled={isClickSoundEnabled} // Передаем состояние звука клика
+                    />
                 </div>
             )}
             {showLevelUpModal && (
