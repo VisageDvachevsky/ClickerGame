@@ -1,0 +1,233 @@
+.referralModalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.referralModalContent {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    padding: 30px 25px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    max-width: 360px;
+    width: 90%;
+    animation: slideUp 0.5s ease-out;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.referralTitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.referralInfo {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.referralInfo:active {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(0.98);
+}
+
+.infoItem {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin: 10px 0;
+}
+
+.referralCodeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.referralCodeInput {
+    padding: 12px 15px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    flex-grow: 1;
+    transition: all 0.3s ease;
+}
+
+.referralCodeInput:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #ff4757;
+}
+
+.copyButton {
+    padding: 12px 15px;
+    font-size: 1rem;
+    background-color: #ff4757;
+    color: #fff;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease, transform 0.1s ease;
+}
+
+.copyButton.copied {
+    background-color: #4CAF50;
+    transform: scale(1.05);
+}
+
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f2d74e;
+    opacity: 0;
+    animation: confettiExplosion 3s ease-out forwards, confettiSpin 3s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes confettiExplosion {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--translate-x), var(--translate-y)) scale(0.5);
+    }
+}
+
+@keyframes confettiSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.confetti:nth-child(even) {
+    background-color: #00cec9;
+    width: 12px;
+    height: 12px;
+}
+
+.confetti:nth-child(4n) {
+    background-color: #ff7675;
+    width: 7px;
+    height: 14px;
+}
+
+.confetti:nth-child(4n+1) {
+    background-color: #6c5ce7;
+    width: 9px;
+    height: 9px;
+}
+
+
+.copyButton:active {
+    background-color: #ff6b81;
+    transform: scale(0.95);
+}
+
+.referralCount {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ff4757;
+    animation: pulse 2s infinite;
+}
+
+.closeButton {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 20px;
+}
+
+.closeButton:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.closeButton:active {
+    background-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 360px) {
+    .referralModalContent {
+        padding: 25px 20px;
+    }
+    
+    .referralTitle {
+        font-size: 1.6rem;
+    }
+    
+    .infoItem {
+        font-size: 1rem;
+    }
+    
+    .referralCodeInput,
+    .copyButton {
+        font-size: 1rem;
+        padding: 10px 12px;
+    }
+    
+    .closeButton {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
 
-const Header = ({ onOpenProfile, onOpenStore }) => {
+const Header = ({ onOpenProfile, onOpenStore, onToggleMusic, isMusicPlaying, isMusicEnabled, onOpenReferrals  }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [audioLoaded, setAudioLoaded] = useState(false); 
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
 
@@ -10,7 +11,7 @@ const Header = ({ onOpenProfile, onOpenStore }) => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const handleClickOutside = (event) => {
+    const handleTouchOutside = (event) => {
         if (menuRef.current && !menuRef.current.contains(event.target) &&
             buttonRef.current && !buttonRef.current.contains(event.target)) {
             setIsMenuOpen(false);
@@ -18,9 +19,9 @@ const Header = ({ onOpenProfile, onOpenStore }) => {
     };
 
     useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleTouchOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleTouchOutside);
         };
     }, []);
 
@@ -33,6 +34,19 @@ const Header = ({ onOpenProfile, onOpenStore }) => {
         onOpenStore();
         setIsMenuOpen(false);
     };
+
+    const handleMusicToggle = () => {
+        onToggleMusic();
+    };
+    
+    const handleReferralsClick = () => {
+        onOpenReferrals();
+        setIsMenuOpen(false);
+    };
+
+    useEffect(() => {
+        setAudioLoaded(true); 
+    }, []);
 
     return (
         <header className="game-header">
@@ -53,10 +67,17 @@ const Header = ({ onOpenProfile, onOpenStore }) => {
                 <ul>
                     <li><button onClick={handleProfileClick} className="menu-item profile-button">Profile</button></li>
                     <li><button onClick={handleStoreClick} className="menu-item store-button">Store</button></li>
-                    <li><a href="#" className="menu-item">...</a></li>
+                    <li><button onClick={handleReferralsClick} className="menu-item referrals-button">Referrals</button></li>
                     <li><a href="#" className="menu-item">...</a></li>
                 </ul>
             </nav>
+            <button 
+                className="music-toggle" 
+                onClick={handleMusicToggle} 
+                disabled={!audioLoaded}
+            >
+                {isMusicEnabled ? (isMusicPlaying ? '🔇' : '🔊') : '🎵'}
+            </button>
         </header>
     );
 };

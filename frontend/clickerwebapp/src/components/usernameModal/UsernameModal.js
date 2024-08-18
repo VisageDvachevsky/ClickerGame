@@ -6,11 +6,16 @@ import { stringToHex } from '../../utils/stringUtils';
 
 const API_BASE_URL = '/API';
 
-const UsernameModal = ({ onSubmit }) => {
+const UsernameModal = ({ onSubmit, startMusic }) => {
     const [username, setUsername] = useState('');
+    const [referralCode, setReferralCode] = useState('');
 
     const handleChange = (e) => {
         setUsername(e.target.value);
+    };
+
+    const handleReferralChange = (e) => {
+        setReferralCode(e.target.value.toUpperCase());
     };
 
     const handleSubmit = async (e) => {
@@ -19,14 +24,27 @@ const UsernameModal = ({ onSubmit }) => {
             const userId = stringToHex(username.trim());
 
             try {
-                const response = await axios.post(`${API_BASE_URL}/login`, { userId });
+                const loginResponse = await axios.post(`${API_BASE_URL}/login`, { userId });
 
-                if (response.data.success) {
-                    Cookies.set('userId', userId, { expires: 365 }); 
+                if (loginResponse.data.success) {
+                    Cookies.set('userId', userId, { expires: 365 });
 
-                    onSubmit(userId);
+                    if (referralCode) {
+                        const referralResponse = await axios.post(`${API_BASE_URL}/apply-referral-code`, { 
+                            userId, 
+                            referralCode 
+                        });
+                        if (referralResponse.data.success) {
+                            console.log('Referral code applied successfully');
+                        } else {
+                            console.log(referralResponse.data.message);
+                        }
+                    }
+
+                    startMusic(); 
+                    onSubmit(userId); 
                 } else {
-                    console.error('Error from server:', response.data.message);
+                    console.error('Error from server:', loginResponse.data.message);
                 }
             } catch (error) {
                 console.error('Error submitting username:', error);
@@ -51,6 +69,17 @@ const UsernameModal = ({ onSubmit }) => {
                         />
                         <span className="nickname-icon">🎮</span>
                     </div>
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            value={referralCode}
+                            onChange={handleReferralChange}
+                            placeholder="Have a referral code? Enter it here"
+                            className="referral-input"
+                            maxLength="6"
+                        />
+                        <span className="referral-icon">🔗</span>
+                    </div>
                     <button type="submit" className="submit-button">
                         Let's Go!
                     </button>
@@ -58,7 +87,6 @@ const UsernameModal = ({ onSubmit }) => {
             </div>
         </div>
     );    
-    
 };
 
 export default UsernameModal;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Character from './components/character/Character';
 import HairCounter from './components/hairSidebar/hairCounter';
 import Header from './components/header/header';
@@ -12,6 +12,7 @@ import { getHairStatus, addToBuffer } from './services/hairService';
 import { fetchPoints, processHairRemoval } from './services/pointsService';
 import { updateBackground } from './services/backgroundService';
 import StoreModal from './components/storeModal/StoreModal';
+import ReferralModal from './components/referral/ReferralModal';
 import './App.css';
 
 const API_BASE_URL = '/API';
@@ -21,10 +22,46 @@ function App() {
     const [hairCount, setHairCount] = useState(0);
     const [points, setPoints] = useState(0);
     const [level, setLevel] = useState(1); 
+    const [isReferralModalOpen, setIsReferralModalOpen] = useState(false);
     const [showLevelUpModal, setShowLevelUpModal] = useState(false); 
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [showStoreModal, setShowStoreModal] = useState(false);
+    const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+    const [isMusicEnabled, setIsMusicEnabled] = useState(false);
+    const audioRef = useRef(new Audio('/sounds/MainMusic.ogg'));
+
     const maxHairCount = 5000;
+
+    useEffect(() => {
+        audioRef.current.loop = true;
+        return () => {
+            audioRef.current.pause();
+        };
+    }, []);
+
+    const enableMusic = () => {
+        setIsMusicEnabled(true);
+        startMusic();
+    };
+
+    const startMusic = () => {
+        if (isMusicEnabled) {
+            audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+            setIsMusicPlaying(true);
+        }
+    };
+
+    const toggleMusic = () => {
+        if (!isMusicEnabled) {
+            enableMusic();
+        } else if (isMusicPlaying) {
+            audioRef.current.pause();
+            setIsMusicPlaying(false);
+        } else {
+            audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+            setIsMusicPlaying(true);
+        }
+    };
 
     const checkAutoLogin = async (userIdFromCookie) => {
         try {
@@ -79,17 +116,24 @@ function App() {
         }
     };
 
-    const handleUsernameSubmit = (id) => {
+    const handleUsernameSubmit = async (id) => {
         setUserId(id);
-        fetchHairStatus(id);
-        fetchAndSetPoints(id);
-        fetchAndSetLevel(id);
+        await Promise.all([
+            fetchHairStatus(id),
+            fetchAndSetPoints(id),
+            fetchAndSetLevel(id)
+        ]);
+        enableMusic(); 
     };
 
     const handleRemoveHair = async () => {
         if (hairCount > 0) {
             setHairCount(prev => prev - 1);
             addToBuffer(userId, 1);
+            
+            if (!isMusicEnabled) {
+                enableMusic(); 
+            }
             
             try {
                 const newPoints = await processHairRemoval(userId, points, 1, level);
@@ -104,7 +148,7 @@ function App() {
                 }
                 
                 if (newLevel <= 6) {
-                    const backgroundResponse = await updateBackground(userId, newPoints);
+                    await updateBackground(userId, newPoints);
                 }
             } catch (error) {
                 console.error('Error processing hair removal:', error);
@@ -141,12 +185,23 @@ function App() {
         setShowStoreModal(false);
     };
 
+    const handleOpenReferrals = () => {
+        setIsReferralModalOpen(true);
+    };
+
     return (
         <div className="App">
             <Background userId={userId} points={points} level={level} />
-            <Header onOpenProfile={openProfileModal} onOpenStore={openStoreModal} />
+            <Header 
+                onOpenProfile={openProfileModal} 
+                onOpenStore={openStoreModal} 
+                onToggleMusic={toggleMusic}
+                isMusicPlaying={isMusicPlaying}
+                isMusicEnabled={isMusicEnabled}
+                onOpenReferrals={handleOpenReferrals}
+            />
             {!userId ? (
-                <UsernameModal onSubmit={handleUsernameSubmit} />
+                <UsernameModal onSubmit={handleUsernameSubmit} startMusic={startMusic} />
             ) : (
                 <div className="game-container">
                     <HairCounter 
@@ -180,6 +235,11 @@ function App() {
                     updatePoints={updatePoints}
                 />
             )}
+            <ReferralModal
+                userId={userId}
+                isOpen={isReferralModalOpen}
+                onClose={() => setIsReferralModalOpen(false)}
+            />
         </div>
     );
 }

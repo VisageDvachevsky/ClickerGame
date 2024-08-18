@@ -1,9 +1,11 @@
 const User = require('../models/user');
 const HairStatus = require('../models/hairStatus');
+const Referral = require('../models/referral');
 
 exports.login = async (req, res) => {
   try {
     const { userId } = req.body;
+
     let user = await User.findOne({ userId });
 
     if (!user) {
@@ -13,9 +15,17 @@ exports.login = async (req, res) => {
         backgroundIndex: 0       
       });
       await user.save();
-
-      const hairStatus = new HairStatus({ userId, hairCount: 5000 }); 
-      await hairStatus.save();
+      
+      try {
+        const hairStatus = new HairStatus({ userId, hairCount: 5000 });
+        await hairStatus.save();
+      } catch (error) {
+        if (error.code === 11000) {  
+          console.log('HairStatus for this userId already exists, skipping creation.');
+        } else {
+          throw error;  
+        }
+      }
     }
 
     res.json({ success: true });

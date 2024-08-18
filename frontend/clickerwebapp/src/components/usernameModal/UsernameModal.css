@@ -111,3 +111,31 @@
 .submit-button:active {
     transform: scale(0.95);
 }
+
+.referral-input {
+    width: 100%;
+    padding: 10px 15px 10px 35px;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    font-size: 14px;
+    background: #fff;
+    color: #333;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    z-index: 2;
+    margin-top: 10px;
+}
+
+.referral-input:focus {
+    border-color: #ff77a9;
+    outline: none;
+    box-shadow: 0 0 6px rgba(255, 119, 169, 0.6);
+}
+
+.referral-icon {
+    position: absolute;
+    left: 10px;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 3;
+}
