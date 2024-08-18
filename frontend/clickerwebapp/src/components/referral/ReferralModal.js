@@ -90,8 +90,8 @@ const ReferralModal = ({ userId, isOpen, onClose }) => {
                         className="confetti"
                         style={{
                             left: conf.left,
-                            top: conf.top, // Указываем начальное положение сверху
-                            transform: `translate(${conf.translateX}, ${conf.translateY})`, // Задаем смещение
+                            top: conf.top, 
+                            transform: `translate(${conf.translateX}, ${conf.translateY})`, 
                             animationDuration: conf.animationDuration,
                             animationDelay: conf.animationDelay
                         }}

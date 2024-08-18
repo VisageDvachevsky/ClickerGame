@@ -9,6 +9,7 @@ const levelRoutes = require('./routes/level');
 const profileRouter = require('./routes/profile');
 const couponRoutes = require('./routes/coupon');  
 const referralsRoutes = require('./routes/referral');
+const challengeRoutes = require('./routes/challenge');
 const { connectDB } = require('./config/database');
 const startDynamicScheduler = require('./services/hairResetService');
 const { startCouponCleanupScheduler } = require('./services/couponService');
@@ -29,7 +30,8 @@ app.use('/API', pointsRoutes);
 app.use('/API', levelRoutes);
 app.use('/API', profileRouter);
 app.use('/API', couponRoutes); 
-app.use('/API', referralsRoutes);   
+app.use('/API', referralsRoutes);  
+app.use('/API', challengeRoutes);
 
 startDynamicScheduler();
 startCouponCleanupScheduler();

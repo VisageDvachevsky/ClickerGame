@@ -6,6 +6,7 @@ import UsernameModal from './components/usernameModal/UsernameModal';
 import Background from './components/background/background';
 import LevelUpModal from './components/levelUpModal/LevelUpModal'; 
 import ProfileModal from './components/profileModal/ProfileModal';
+import ChallengeComponent from './components/challenge/Challenge';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { getHairStatus, addToBuffer } from './services/hairService';
@@ -23,6 +24,7 @@ function App() {
     const [points, setPoints] = useState(0);
     const [level, setLevel] = useState(1); 
     const [isReferralModalOpen, setIsReferralModalOpen] = useState(false);
+    const [showChallenges, setShowChallenges] = useState(false);
     const [showLevelUpModal, setShowLevelUpModal] = useState(false); 
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [showStoreModal, setShowStoreModal] = useState(false);
@@ -189,6 +191,14 @@ function App() {
         setIsReferralModalOpen(true);
     };
 
+    const handleOpenChallenges = () => {
+        setShowChallenges(true);
+    };
+
+    const handleCloseChallenges = () => {
+        setShowChallenges(false);
+    };
+
     return (
         <div className="App">
             <Background userId={userId} points={points} level={level} />
@@ -199,6 +209,7 @@ function App() {
                 isMusicPlaying={isMusicPlaying}
                 isMusicEnabled={isMusicEnabled}
                 onOpenReferrals={handleOpenReferrals}
+                onOpenChallenges={handleOpenChallenges}
             />
             {!userId ? (
                 <UsernameModal onSubmit={handleUsernameSubmit} startMusic={startMusic} />
@@ -240,6 +251,12 @@ function App() {
                 isOpen={isReferralModalOpen}
                 onClose={() => setIsReferralModalOpen(false)}
             />
+            {showChallenges && (
+                <ChallengeComponent 
+                    userId={userId}
+                    onClose={handleCloseChallenges}
+                />
+            )}
         </div>
     );
 }
