@@ -65,7 +65,7 @@
     color: #ffffff;
     font-size: 1.6rem;  
     text-align: center;
-    margin-bottom: 12px;  /
+    margin-bottom: 12px;  
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
@@ -75,7 +75,7 @@
     justify-content: center;
     font-size: 1.1rem;  
     color: #ffd700;
-    margin-bottom: 15px;  /
+    margin-bottom: 15px;  
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
@@ -122,13 +122,13 @@
 
 .activeCoupon h4 {
     color: #ffffff;
-    margin-bottom: 8px;  /
+    margin-bottom: 8px;  
     font-size: 1rem;  
 }
 
 .activeCoupon p {
     color: #cccccc;
-    margin-bottom: 5px;  /
+    margin-bottom: 5px;  
     font-size: 0.9rem;  
 }
 
@@ -136,7 +136,7 @@
     width: 90%;  
     max-width: 140px;  
     height: auto;
-    margin: 8px 0;  /
+    margin: 8px 0;  
 }
 
 .closeButton {
