@@ -131,3 +131,27 @@
       opacity: 0;
     }
   }
+
+@media (max-width: 480px) {
+    .level-up-modal-content {
+        padding: 1.2rem;
+        max-width: 16rem;
+    }
+
+    .level-up-modal-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .level-up-modal-content p {
+        font-size: 0.9rem;
+    }
+
+    .level-up-icon {
+        font-size: 2.5rem;
+    }
+
+    .level-up-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}

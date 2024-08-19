@@ -53,7 +53,7 @@ const UsernameModal = ({ onSubmit, startMusic }) => {
     };
 
     return (
-        <div className="modal-backdrop">
+        <div className="modal-backdrop ">
             <div className="modal-content">
                 <h2>Choose Your Nickname</h2>
                 <p>Make it fun and unique!</p>

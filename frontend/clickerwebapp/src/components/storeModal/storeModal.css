@@ -4,13 +4,13 @@
 }
 
 @keyframes slideUp {
-    from { transform: translateY(30px); opacity: 0; }
+    from { transform: translateY(20px); opacity: 0; } 
     to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
@@ -22,118 +22,139 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    animation: fadeIn 0.3s ease-out;
+    overflow-y: auto; 
 }
 
 .modalContent {
     background: linear-gradient(135deg, #212121 0%, #3a3a3a 100%);
-    border-radius: 16px;
-    padding: 20px;
-    width: 90%;
-    max-width: 400px;
-    max-height: 80vh;
+    border-radius: 14px;
+    padding: 15px;
+    width: 85%;
+    max-width: 350px;
+    max-height: 80vh; 
     overflow-y: auto;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    animation: slideUp 0.4s ease-out;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.35s ease-out;
     font-family: 'Poppins', sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: #009ffd #2a2a72; 
+    flex-direction: column;
 }
+
+.modalContent::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.modalContent::-webkit-scrollbar-track {
+    background: #2a2a72; 
+    border-radius: 10px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+    background-color: #009ffd; 
+    border-radius: 10px;
+    border: 2px solid #2a2a72; 
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+    background-color: #007bcf; 
+}
+
 
 .title {
     color: #ffffff;
-    font-size: 1.8rem;
+    font-size: 1.6rem;  
     text-align: center;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 12px;  /
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .userPoints {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.1rem;  
     color: #ffd700;
-    margin-bottom: 20px;
+    margin-bottom: 15px;  /
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .userPoints:hover {
-    transform: scale(1.08);
+    transform: scale(1.05); 
     color: #ffdf00;
 }
 
 .userPoints .icon {
-    margin-right: 8px;
+    margin-right: 6px;  
     animation: pulse 1.5s infinite;
 }
 
 .storeSection {
+    flex-grow: 1; 
+    overflow-y: auto; 
     margin-bottom: 20px;
 }
 
 .storeSection h3 {
     color: #ffffff;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
+    font-size: 1.2rem;  
+    margin-bottom: 8px;  
 }
 
 .couponGrid, .productGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 12px;
-}
-
-.productGrid.h4 {
-    color: white;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
 }
 
 .activeCoupon {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    padding: 15px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 8px; 
+    padding: 12px;  
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .activeCoupon:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px); 
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25); 
 }
 
 .activeCoupon h4 {
     color: #ffffff;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    margin-bottom: 8px;  /
+    font-size: 1rem;  
 }
 
 .activeCoupon p {
     color: #cccccc;
-    margin-bottom: 6px;
-    font-size: 0.95rem;
+    margin-bottom: 5px;  /
+    font-size: 0.9rem;  
 }
 
 .qrCode {
-    width: 100%;
-    max-width: 160px;
+    width: 90%;  
+    max-width: 140px;  
     height: auto;
-    margin: 10px 0;
+    margin: 8px 0;  /
 }
 
 .closeButton {
     display: block;
     width: 100%;
-    padding: 12px;
+    padding: 10px;  
     background-color: #ff4757;
     color: white;
     border: none;
     border-radius: 6px;
-    font-size: 1rem;
+    font-size: 0.9rem;  
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .closeButton:hover {
     background-color: #ff6b81;
-    transform: translateY(-3px);
+    transform: translateY(-2px); 
 }
 
 .closeButton:active {
@@ -146,26 +167,84 @@
     }
 
     .modalContent {
-        padding: 15px;
-        width: 95%;
+        padding: 12px; 
+        width: 90%;
     }
 }
 
 .couponInfo {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    padding: 12px;
-    margin-top: 12px;
+    background-color: rgba(255, 255, 255, 0.12); 
+    border-radius: 8px; 
+    padding: 10px;
+    margin-top: 10px; 
     text-align: center;
     transition: background-color 0.3s ease;
 }
 
 .couponInfo:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.18); 
 }
 
 .couponInfo p {
-    margin: 6px 0;
+    margin: 5px 0; 
     color: #ffffff;
-    font-size: 0.95rem;
+    font-size: 0.9rem; 
+}
+
+.modalContent p, .modalContent h4, .modalContent .userPoints {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+.collapsibleSection h3 {
+    cursor: pointer;
+    margin-bottom: 10px;
+    background: #3a3a3a;
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.collapsibleSection .couponGrid, .collapsibleSection .productGrid {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 480px) {
+    .modalContent {
+        padding: 10px;
+        max-width: 95%;
+        max-height: 90vh;
+    }
+    .title {
+        font-size: 1.4rem;  
+    }
+
+    .userPoints {
+        font-size: 0.95rem; 
+    }
+
+    .storeSection h3 {
+        font-size: 1rem; 
+    }
+
+    .couponGrid, .productGrid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+    }
+
+    .activeCoupon h4 {
+        font-size: 0.9rem; 
+    }
+
+    .activeCoupon p {
+        font-size: 0.8rem; 
+    }
+
+    .closeButton {
+        padding: 8px; 
+        font-size: 0.85rem; 
+    }
 }

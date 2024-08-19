@@ -37,7 +37,7 @@ const LevelUpModal = ({ level, onClose }) => {
   }, [createConfetti]);
 
   return (
-    <div className="level-up-modal-backdrop">
+    <div className="level-up-modal-backdrop ">
       <div className="level-up-modal-content">
         <div className="level-up-icon" role="img" aria-label="Celebration">🎉</div>
         <h2>Congratulations!</h2>

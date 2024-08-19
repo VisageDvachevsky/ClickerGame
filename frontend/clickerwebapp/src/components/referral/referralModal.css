@@ -231,3 +231,30 @@
         font-size: 1rem;
     }
 }
+
+@media (max-width: 480px) {
+    .referralModalContent {
+        padding: 20px 15px;
+        max-width: 300px;
+    }
+    
+    .referralTitle {
+        font-size: 1.5rem;
+    }
+    
+    .infoItem {
+        font-size: 0.9rem;
+    }
+    
+    .referralCodeInput,
+    .copyButton {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+    
+    .closeButton {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+

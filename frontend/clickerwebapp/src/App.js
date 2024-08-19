@@ -29,7 +29,7 @@ function App() {
     const [isMusicPlaying, setIsMusicPlaying] = useState(false);
     const [isMusicEnabled, setIsMusicEnabled] = useState(false);
     const [isClickSoundEnabled, setIsClickSoundEnabled] = useState(true);
-    const audioRef = useRef(new Audio('/sounds/MainMusic.ogg'));
+    const audioRef = useRef(new Audio('/sounds/MainMusic.mp3'));
 
     const maxHairCount = 5000;
 
@@ -195,9 +195,10 @@ function App() {
     const handleOpenReferrals = () => {
         setIsReferralModalOpen(true);
     };
+    
 
     return (
-        <div className="App">
+        <div className="App ">
             <Background userId={userId} points={points} level={level} />
             <Header 
                 onOpenProfile={openProfileModal} 

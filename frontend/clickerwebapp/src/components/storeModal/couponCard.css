@@ -1,7 +1,7 @@
 .couponCard {
     background: linear-gradient(145deg, #2a2a72 0%, #009ffd 74%);
     border-radius: 12px;
-    padding: 20px;
+    padding: 15px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,41 +15,40 @@
 }
 
 .couponIcon {
-    font-size: 3rem;
+    font-size: 2.5rem; 
     color: #ffd700;
-    margin-bottom: 15px;
+    margin-bottom: 10px; 
     animation: pulse 1.5s infinite;
 }
 
 .couponName {
-    font-size: 1.3rem;
+    font-size: 1.1rem; 
     font-weight: bold;
     color: #ffffff;
-    margin-bottom: 10px;
+    margin-bottom: 8px; 
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .couponDiscount {
-    font-size: 1.2rem;
+    font-size: 1rem; 
     color: #ffd700;
-    margin-bottom: 10px;
+    margin-bottom: 8px; 
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .couponPrice {
-    font-size: 1.1rem;
+    font-size: 0.9rem; 
     color: #ffffff;
-    margin-bottom: 15px;
+    margin-bottom: 10px; 
 }
 
 .buyButton {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 10px 15px; 
     border-radius: 6px;
     cursor: pointer;
-    font-size: 1rem;
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -68,4 +67,31 @@
 
 .unaffordable {
     opacity: 0.6;
+}
+
+@media (max-width: 480px) {
+    .couponCard {
+        padding: 10px; 
+    }
+
+    .couponIcon {
+        font-size: 2rem;
+    }
+
+    .couponName {
+        font-size: 0.9rem; 
+    }
+
+    .couponDiscount {
+        font-size: 0.8rem; 
+    }
+
+    .couponPrice {
+        font-size: 0.8rem; 
+    }
+
+    .buyButton {
+        padding: 8px 12px; 
+        font-size: 0.8rem; 
+    }
 }

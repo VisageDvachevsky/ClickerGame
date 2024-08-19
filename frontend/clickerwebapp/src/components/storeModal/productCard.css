@@ -61,3 +61,30 @@
 .unaffordable {
     opacity: 0.7;
 }
+
+@media (max-width: 480px) {
+    .productCard {
+        padding: 12px;
+    }
+
+    .productIcon {
+        font-size: 2rem;
+    }
+
+    .productName {
+        font-size: 1rem;
+    }
+
+    .productDescription {
+        font-size: 0.8rem;
+    }
+
+    .productPrice {
+        font-size: 0.9rem;
+    }
+
+    .buyButton {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}

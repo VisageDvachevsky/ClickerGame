@@ -64,9 +64,17 @@
 }
 
 @keyframes click-animation {
-    0% { transform: scale(0.98); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(0.99);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
+
 
 .character-container, 
 .character-card, 
@@ -78,3 +86,4 @@
 .character-image:focus {
     outline: none;
 }
+

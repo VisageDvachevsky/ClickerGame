@@ -70,7 +70,7 @@ const ReferralModal = ({ userId, isOpen, onClose }) => {
     
 
     return (
-        <div className="referralModalBackdrop">
+        <div className="referralModalBackdrop ">
             <div className="referralModalContent">
                 <h2 className="referralTitle">Referral Program</h2>
                 <div className="referralInfo">

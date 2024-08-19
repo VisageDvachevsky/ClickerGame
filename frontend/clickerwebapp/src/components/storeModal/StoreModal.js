@@ -16,6 +16,8 @@ const StoreModal = ({ isOpen, onClose, userId, points, updatePoints }) => {
     ]);
     const [hasCoupon, setHasCoupon] = useState(false);
     const [activeCoupon, setActiveCoupon] = useState(null);
+    const [isCouponsOpen, setIsCouponsOpen] = useState(true);
+    const [isPowerupsOpen, setIsPowerupsOpen] = useState(false);
 
     useEffect(() => {
         if (isOpen) {
@@ -73,18 +75,14 @@ const StoreModal = ({ isOpen, onClose, userId, points, updatePoints }) => {
             <div className="modalContent" onClick={(e) => e.stopPropagation()}>
                 <h2 className="title">Store</h2>
                 <div className="userPoints">
-                    <span className="icon">💎</span>
-                    Points: {points}
+                    <span className="icon">💎</span> Points: {points}
                 </div>
-                <div className="storeSection">
-                    <h3>Discount Coupons</h3>
-                    {hasCoupon ? (
-                        <div className="couponInfo">
-                            <p>You have an active coupon:</p>
-                            <p>${activeCoupon.discount} discount</p>
-                            <p>Expires: {new Date(activeCoupon.expiresAt).toLocaleDateString()}</p>
-                        </div>
-                    ) : (
+                
+                <div className="collapsibleSection">
+                    <h3 onClick={() => setIsCouponsOpen(!isCouponsOpen)}>
+                        Discount Coupons {isCouponsOpen ? '▲' : '▼'}
+                    </h3>
+                    {isCouponsOpen && (
                         <div className="couponGrid">
                             {coupons.map(coupon => (
                                 <CouponCard
@@ -97,17 +95,22 @@ const StoreModal = ({ isOpen, onClose, userId, points, updatePoints }) => {
                         </div>
                     )}
                 </div>
-                <div className="storeSection">
-                    <h3>Power-ups</h3>
-                    <div className="productGrid">
-                        {/* for future products */}
-                        <h4>SOON...</h4>
-                    </div>
+    
+                <div className="collapsibleSection">
+                    <h3 onClick={() => setIsPowerupsOpen(!isPowerupsOpen)}>
+                        Power-ups {isPowerupsOpen ? '▲' : '▼'}
+                    </h3>
+                    {isPowerupsOpen && (
+                        <div className="productGrid">
+                            <h4>SOON...</h4>
+                        </div>
+                    )}
                 </div>
+    
                 <button className="closeButton" onClick={onClose}>Close</button>
             </div>
         </div>
-    );
+    );   
 };
 
 export default StoreModal;

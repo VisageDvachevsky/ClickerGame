@@ -91,7 +91,7 @@ const ProfileModal = ({ isOpen, onClose, userId }) => {
     const username = hexToString(profile.userId);
 
     return (
-        <div className="profileModalBackdrop" onClick={onClose}>
+        <div className="profileModalBackdrop " onClick={onClose}>
             <div className="profileModalContent" onClick={(e) => e.stopPropagation()}>
                 <h2 className="profileTitle">Profile</h2>
                 <div className="profileInfo">
