@@ -13,6 +13,7 @@ import { fetchPoints, processHairRemoval } from './services/pointsService';
 import { updateBackground } from './services/backgroundService';
 import StoreModal from './components/storeModal/StoreModal';
 import ReferralModal from './components/referral/ReferralModal';
+import StatusDisplay from './components/displayInfo/StatusDisplay';
 import './App.css';
 
 const API_BASE_URL = '/API';
@@ -46,12 +47,10 @@ function App() {
     };
 
     const startMusic = () => {
-        if (isMusicEnabled) {
-            audioRef.current.volume = 40;
-            audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+        audioRef.current.volume = 40;
+        audioRef.current.play().catch(e => console.error("Audio play failed:", e));
             
-            setIsMusicPlaying(true);
-        }
+        setIsMusicPlaying(true);
     };
 
     const toggleMusic = () => {
@@ -226,6 +225,7 @@ function App() {
                         onRemoveHair={handleRemoveHair} 
                         isClickSoundEnabled={isClickSoundEnabled}
                     />
+                    <StatusDisplay hairCount={hairCount} points={points} />
                 </div>
             )}
             {showLevelUpModal && (

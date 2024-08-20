@@ -81,7 +81,7 @@ const Header = ({ onOpenProfile, onOpenStore, onToggleMusic, isMusicPlaying, isM
                 onClick={handleMusicToggle} 
                 disabled={!audioLoaded}
             >
-                {isMusicEnabled ? (isMusicPlaying ? '🔇' : '🔊') : '🎵'}
+                {isMusicEnabled ? (isMusicPlaying ? '🔊' : '🔇') : '🎵'}
             </button>
             <button 
                 className="click-sound-toggle" 

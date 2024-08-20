@@ -130,3 +130,4 @@ dist
 .pnp.*
 /backend/public
 build_log.txt
+build_log.txt
