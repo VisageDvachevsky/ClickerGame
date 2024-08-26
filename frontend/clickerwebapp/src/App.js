@@ -47,11 +47,11 @@ function App() {
     };
 
     const startMusic = () => {
-        audioRef.current.volume = 40;
+        audioRef.current.volume = 0.4; 
         audioRef.current.play().catch(e => console.error("Audio play failed:", e));
-            
         setIsMusicPlaying(true);
     };
+    
 
     const toggleMusic = () => {
         if (!isMusicEnabled) {
